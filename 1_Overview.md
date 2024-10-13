@@ -4,7 +4,7 @@
 
 First, it includes 30 basic [Easing Functions](https://easings.net/) that developers can apply to any interpolation with a single function.
 
-And then, it also contains tools for procedurally easing changes in non-defined interpolations (interpolations where the end point is unknown).
+And then, it also contains tools for procedurally easing changes in non-defined interpolations (interpolations where the endpoint is unknown).
 They can be used to ease a player character's movement, to give personality to AI movement, to polish game effects... 
 
 -------------------------------------
