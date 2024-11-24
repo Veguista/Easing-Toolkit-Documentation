@@ -8,9 +8,8 @@ All Advanced Workflows revolve around using **SecondOrderDynamics**:
 
 ## Index
 
-**Configuring the Dynamics**
-1. [The _Stored Transform Data_ Input Method](#storedTransformData)
-
+1. [The *Stored Transform Data* Input Method](#storedTransformData)
+2. [Custom SecondOrder_Scripts](#customSecondOrderScripts)
 
 ##
 
@@ -43,6 +42,45 @@ Updates to the Transform the SecondOrderTransform component is attached to do no
 **_WARNINGS:_ **
 - When using the "_Stored Transform Data_" input method, updating the component's dynamics before initializing them will result in an error. The error will indicate that the component is trying to set certain Transform values to NaN.
 - The "_Stored Transform Data_" input method requires users to initialize the Dynamics of the component every time the Dynamic type changes.
+
+##
+
+### Custom Second Order Scripts {#customSecondOrderScripts}
+Experienced users might realize the potential of incorporating Second Order Dynamics into non Transform-related workflows. However, they will also realize the limitations of using the **SecondOrderTransform** script for such purposes:
+
+*Ex. A user wants to apply Second Order Dynamics to a float value and obtain its eased value. If they were following the [Basic Workflow](https://github.com/Veguista/Easing-Toolkit-Documentation/blob/main/5_Basic%20Workflow.md), they would need to apply the value to an empty GameObject to then extract it and store it.*
+
+A much better alternative exists, which is to use the core Second Order structs:
+
+- SecondOrder_1D => Applies Second Order Dynamics to **float** values.
+- SecondOrder_2D => Applies Second Order Dynamics to **Vector2**.
+- SecondOrder_3D => Applies Second Order Dynamics to **Vector3**.
+- SecondOrder_Rotation => Applies Second Order Dynamics to **Quaternions**.
+
+##
+
+Second Order structs are only accessible through code when using the **EasingToolkit.SecondOrderDynamics** namespace. To access it, users can add the following line of code at the beginning of their script:
+> **using EasingToolkit.SecondOrderDynamics;**
+
+##
+
+To apply a Second Order Dynamic to a supported value, first create a Second Order Struct using the following constructor, replacing only the struct name:
+
+SecondOrder_Type(float _frequency, float _dampening, float _initialResponse, Type _initialValue);
+
+For example, this is how we could declare a SecondOrder_3D struct:
+> // The Vector3 that the Second Order Dynamic will use as its starting value.
+> Vector3 startingPosition = Vector3.zero;
+
+> float frequency = 1f;
+> float dampening = 1f;
+> float intialResponse = 1f;
+
+> SecondOrder_3D mySecondOrder3D = SecondOrder_3D(frequency, dampening, intialResponse, startingPosition);
+
+##
+
+Every time that we wish to update the 
 
 ##
 
