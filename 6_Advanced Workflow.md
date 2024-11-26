@@ -10,6 +10,11 @@ All Advanced Workflows revolve around using **SecondOrderDynamics**:
 
 1. [The *Stored Transform Data* Input Method](#storedTransformData)
 2. [Custom SecondOrder_Scripts](#customSecondOrderScripts)
+	2.1 [Namespace](#customSONamespace)
+    2.2 [Constructor](#customSOConstructor)
+	2.3 [Functions - Update](#customSOUpdate) 
+    2.4 [Functions - Change Constants](#customSOChangeConstants)
+    2.5 [Functions - Reset](#customSOReset) 
 
 ##
 
@@ -48,27 +53,31 @@ Updates to the Transform the SecondOrderTransform component is attached to do no
 ### Custom Second Order Scripts {#customSecondOrderScripts}
 Experienced users might realize the potential of incorporating Second Order Dynamics into non Transform-related workflows. However, they will also realize the limitations of using the **SecondOrderTransform** script for such purposes:
 
-*Ex. A user wants to apply Second Order Dynamics to a float value and obtain its eased value. If they were following the [Basic Workflow](https://github.com/Veguista/Easing-Toolkit-Documentation/blob/main/5_Basic%20Workflow.md), they would need to apply the value to an empty GameObject to then extract it and store it.*
+*Ex. A user wants to apply Second Order Dynamics to a float value and obtain its eased value. If they were following the [Basic Workflow](https://github.com/Veguista/Easing-Toolkit-Documentation/blob/main/5_Basic%20Workflow.md), they would need to apply the value to an empty GameObject's Transform to then extract it and store it.*
 
 A much better alternative exists, which is to use the core Second Order structs:
 
-- SecondOrder_1D => Applies Second Order Dynamics to **float** values.
-- SecondOrder_2D => Applies Second Order Dynamics to **Vector2**.
-- SecondOrder_3D => Applies Second Order Dynamics to **Vector3**.
+- SecondOrder_1D => Applies Second Order Dynamics to **floats**.
+- SecondOrder_2D => Applies Second Order Dynamics to **Vector2**s.
+- SecondOrder_3D => Applies Second Order Dynamics to **Vector3**s.
 - SecondOrder_Rotation => Applies Second Order Dynamics to **Quaternions**.
 
 ##
+
+### Namespace {#customSONamespace}
 
 Second Order structs are only accessible through code when using the **EasingToolkit.SecondOrderDynamics** namespace. To access it, users can add the following line of code at the beginning of their script:
 > **using EasingToolkit.SecondOrderDynamics;**
 
 ##
 
-To apply a Second Order Dynamic to a supported value, first create a Second Order Struct using the following constructor, replacing only the struct name:
+### Contructor {#customSOConstructor}
 
-SecondOrder_Type(float _frequency, float _dampening, float _initialResponse, Type _initialValue);
+To apply a Second Order Dynamic to a supported value, first create a Second Order Struct using the following constructor, replacing the Struct Type with one of the supported types (*float, Vector2, Vector3, Quaternion*):
 
-For example, this is how we could declare a SecondOrder_3D struct:
+> SecondOrder_**Type** (float _frequency, float _dampening, float _initialResponse, **Type** _initialValue);
+
+For example, this is how we could declare a Vector3 struct:
 > // The Vector3 that the Second Order Dynamic will use as its starting value.
 > Vector3 startingPosition = Vector3.zero;
 
@@ -80,7 +89,156 @@ For example, this is how we could declare a SecondOrder_3D struct:
 
 ##
 
-Every time that we wish to update the 
+### Functions - Update {#customSOUpdate}
+
+Second order scripts act as post-processors to data. Users update their value by calling the Update() function, and it returns the eased value at that point in time.
+
+#### Declaration
+public _Type_ Update(float deltaTime, _Type_ targetValue);
+
+#### Declaration *(Not avalible for SecondOrder_Rotation)*
+public _Type_ Update(float deltaTime, _Type_ targetValue, _Type_ inputVelocity);
+
+##
+
+| Parameter | Description |
+| --- | ----------- |
+| deltaTime | The ammount of elapsed time since the last Update() call.<br> Cannot be negative or 0. |
+| targetValue | The value of the uneased data the SecondOrder struct is tracking at the time of calling. |
+| inputVelocity | (Optional) The derivate of the value with respect to time. Providing it can improve the accuracy of the SecondOrder system.<br>In those cases where it is not provided, the second order system will approximate it with the data it already has. |
+
+
+
+#### Returns
+The resulting eased value of the Type of the Second Order system. 
+> Ex. SecondOrder_3D.Update() will return an eased Vector3.
+
+#### Example
+
+> using UnityEngine;
+>
+> public class SecondOrder_Vector3Easing : MonoBehaviour
+> {
+> &nbsp;&nbsp;[SerializedField] float frequency = 1.0f;
+> &nbsp;&nbsp;[SerializedField] float dampening = 1.0f;
+> &nbsp;&nbsp;[SerializedField] float initialResponse = 0.f;
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;SecondOrder3D mySecondOrder3D;
+> &nbsp;&nbsp;Vector3 uneasedVector3;
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;private void Start()
+> &nbsp;&nbsp;{
+> &nbsp;&nbsp;&nbsp;&nbsp;//Initializing our Vector3.
+> &nbsp;&nbsp;&nbsp;&nbsp;uneasedVector3 = Vector3.zero;
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;&nbsp;&nbsp;// Initializing our Second Order Script with the starting value of uneasedVector3.
+> &nbsp;&nbsp;&nbsp;&nbsp;mySecondOrder3D = new SecondOrder_3D(frequency, dampening, initialResponse, uneasedVector3);
+> &nbsp;&nbsp;}
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;private void Update()
+> &nbsp;&nbsp;{
+> &nbsp;&nbsp;&nbsp;&nbsp;// Updating the uneased Vector3 in uneasedVector3.
+> &nbsp;&nbsp;&nbsp;&nbsp;uneasedVector3 += Time.deltaTime * new Vector3(1, 0, 0);
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;&nbsp;&nbsp;// (Optional) Making sure that time scale hasn't been used to pause the game.       
+> &nbsp;&nbsp;&nbsp;&nbsp;if(Time.deltaTime == 0)
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;&nbsp;&nbsp; Vector3 easedValue = mySecondOrder3D.Update(Time.deltaTime, uneasedVector3);
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;&nbsp;&nbsp;// Do smth with the eased value.
+> &nbsp;&nbsp;}
+> }
+
+##
+
+### Functions - Change Constants {#customSOChangeConstants}
+
+Allows users to change the parameters (frequency, dampening, and initial response) of a Second Order system after it has been initialized.
+
+#### Declaration
+public void ChangeConstants(float frequency, float dampening, float initialResponse);
+
+#### Declaration *(Intended for internal use only)*
+public void ChangeConstants(SO_Constants constants);
+
+##
+
+| Parameter | Description |
+| --- | ----------- |
+| frequency | The new value for the system's **frequency parameter**.<br>It controls the speed at which the system develops.<br>Higher values will result in a shorter response time. <br>**Warning** => Must be bigger than 0. |
+| dampening | The new value for the system's **dampening parameter**.<br>It controls the amount of dampening applied to the system.<br>Values of 1 or higher produce steady transitions to the target value. Values between 0 and 1 will result in a vibrating system, where the target value will be overshot and the system will vibrate around it. A value of 0 will result in no dampening at all, thus creating a system that will vibrate around a value forever (not recommended).<br>**Warning** => Must be equal to or bigger than 0. |
+| initialResponse | The new value for the system's **initial response parameter**.<br>It controls the initial velocity of the system whenever a new input is placed.<br>When positive and under 1, the system will respond faster to changes. When positive and over 1, the system will have so much initial velocity that it will overshoot its target. When negative, the system will start with an opposite velocity to the target value.
+
+##
+
+#### Example
+
+> using UnityEngine;
+>
+> public class SecondOrder_Vector3Easing : MonoBehaviour
+> {
+> &nbsp;&nbsp;SecondOrder3D mySecondOrder3D;
+> &nbsp;&nbsp;Vector3 uneasedVector3 = Vector3.zero;
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;float frequency = 3.0f;
+> &nbsp;&nbsp;float dampening = 1.0f;
+> &nbsp;&nbsp;float initialResponse = 0.f;
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;private void Start()
+> &nbsp;&nbsp;{
+> &nbsp;&nbsp;&nbsp;&nbsp;// Initializing our Second Order Script with the starting value of uneasedVector3.
+> &nbsp;&nbsp;&nbsp;&nbsp;mySecondOrder3D = new SecondOrder_3D(frequency, dampening, initialResponse, uneasedVector3);
+> &nbsp;&nbsp;}
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;private void Update()
+> &nbsp;&nbsp;{
+> &nbsp;&nbsp;&nbsp;&nbsp;// Updating the uneased Vector3 in uneasedVector3.
+> &nbsp;&nbsp;&nbsp;&nbsp;uneasedVector3 += Time.deltaTime * new Vector3(1, 0, 0);
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;// Making our frequency fluctuate with time. (Do not use this line in a real implementation, as Mathf.Sin has a valid range for its parameters.)
+> &nbsp;&nbsp;frequency = Mathf.Sin(Time.time) + 2;
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;// Updating the parameters in our Second Order Script.
+> &nbsp;&nbsp;mySecondOrder3D.ChangeConstants(frequency, dampening, initialResponse);
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;&nbsp;&nbsp; Vector3 easedValue = mySecondOrder3D.Update(Time.deltaTime, uneasedVector3);
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;&nbsp;&nbsp;// Do smth with the eased value.
+> &nbsp;&nbsp;}
+> }
+
+##
+
+### Functions - Reset {#customSOReset}
+
+Resets the internal speed of the second order system to 0 and sets its value to the last target value passed through the Update() function.
+Effectively, it leaves the Second Order script in the same state as if it had just been created with the last target value passed through the Update() function.
+
+#### Declaration
+public void Reset();
+
+##
+
+| Parameter | Description |
+| --- | ----------- |
+| None | - |
+
+#### Example
+
+> using UnityEngine;
+>
+> public class SecondOrder_Vector3Easing : MonoBehaviour
+> {
+> &nbsp;&nbsp;SecondOrder3D mySecondOrder3D;
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;// Code initializing and using mySecondOrder3D.
+> &nbsp;&nbsp;
+> &nbsp;&nbsp;OnDisable()
+> &nbsp;&nbsp;{
+> &nbsp;&nbsp;&nbsp;&nbsp;mySecondOrder3D.Reset();
+> &nbsp;&nbsp;}
+> }
 
 ##
 
