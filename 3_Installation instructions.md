@@ -1,6 +1,6 @@
 # Easing Toolkit - Installation instructions
 
-
+*This part of the documentation is currently under construction*
 
 -------------------------------------
 

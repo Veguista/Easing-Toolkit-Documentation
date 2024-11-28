@@ -1,6 +1,6 @@
 # Easing Toolkit - References
 
-
+*This part of the documentation is currently under construction*
 
 -------------------------------------
 

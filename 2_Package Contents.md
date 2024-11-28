@@ -1,6 +1,6 @@
 # Easing Toolkit - Package Contents
 
-
+*This part of the documentation is currently under construction*
 
 -------------------------------------
 
