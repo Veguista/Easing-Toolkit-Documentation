@@ -76,16 +76,16 @@ A much better alternative exists, which is to use the core Second Order structs:
 - SecondOrder_1D => Applies Second Order Dynamics to **floats**.
 - SecondOrder_2D => Applies Second Order Dynamics to **Vector2**s.
 - SecondOrder_3D => Applies Second Order Dynamics to **Vector3**s.
-- SecondOrder_Rotation => Applies Second Order Dynamics to **Quaternions**.
+- SecondOrder_Rotation => Applies Second Order Dynamics to **Quaternions**. <br>
 
-<a name="custom-SO-namespace"></a>
+<a name="custom-SO-namespace"></a> <br>
 ### Namespace 
 
 Second Order structs are only accessible through code when using the **EasingToolkit.SecondOrderDynamics** namespace. To access it, users can add the following line of code at the beginning of their script:
 > **using EasingToolkit.SecondOrderDynamics;**
+ <br>
 
-
-<a name="custom-SO-constructor"></a>
+<a name="custom-SO-constructor"></a>  <br>
 ### Contructor 
 
 To apply a Second Order Dynamic to a supported value, first create a Second Order Struct using the following constructor, replacing the Struct Type with one of the supported types (*float, Vector2, Vector3, Quaternion*):
@@ -102,17 +102,17 @@ For example, this is how we could declare a Vector3 struct:
 > float dampening = 1f; <br>
 > float intialResponse = 1f; <br>
 
-> SecondOrder_3D mySecondOrder3D = SecondOrder_3D(frequency, dampening, intialResponse, startingPosition);
+> SecondOrder_3D mySecondOrder3D = SecondOrder_3D(frequency, dampening, intialResponse, startingPosition); <br>
 
 
-<a name="custom-SO-update"></a>
+<a name="custom-SO-update"></a> <br>
 ### Functions - Update <br>
 
 Second order scripts act as post-processors to data. Users update their value by calling the Update() function, and it returns the eased value at that point in time.
 
 
 #### DECLARATION <br>
-public _Type_ Update(float deltaTime, _Type_ targetValue);
+public _Type_ Update(float deltaTime, _Type_ targetValue); <br>
 
 #### DECLARATION *(Not avalible for SecondOrder_Rotation)* <br>
 public _Type_ Update(float deltaTime, _Type_ targetValue, _Type_ inputVelocity);
@@ -168,13 +168,13 @@ The resulting eased value of the Type of the Second Order system.
 > &nbsp;&nbsp; <br>
 > &nbsp;&nbsp;&nbsp;&nbsp;// Do smth with the eased value. <br>
 > &nbsp;&nbsp;} <br>
-> }
+> } <br>
 
 
-<a name="custom-SO-constants"></a>
+<a name="custom-SO-constants"></a> <br>
 ### Functions - Change Constants
 
-Allows users to change the parameters (frequency, dampening, and initial response) of a Second Order system after it has been initialized.
+Allows users to change the parameters (frequency, dampening, and initial response) of a Second Order system after it has been initialized. <br>
 
 #### DECLARATION <br>
 public void ChangeConstants(float frequency, float dampening, float initialResponse);
@@ -226,14 +226,15 @@ public void ChangeConstants(SO_Constants constants);
 > &nbsp;&nbsp; <br>
 > &nbsp;&nbsp;&nbsp;&nbsp;// Do smth with the eased value. <br>
 > &nbsp;&nbsp;} <br>
-> }
+> } <br>
 
 
-<a name="custom-SO-reset"></a>
+<a name="custom-SO-reset"></a> <br>
 ### Functions - Reset <br>
 
 Resets the internal speed of the second order system to 0 and sets its value to the last target value passed through the Update() function.
 Effectively, it leaves the Second Order script in the same state as if it had just been created with the last target value passed through the Update() function.
+ <br>
 
 #### DECLARATION <br>
 public void Reset();
