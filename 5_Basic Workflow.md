@@ -7,19 +7,21 @@ This document contains information conveying the basic workflow of the systems i
 ## Index
 
 1. [**SecondOrderDynamics**](#secondOrderDynamics)
-⋅⋅⋅**Debug Options**
-⋅⋅⋅1.1  [Running Dynamics In Editor](#runDynamicsInEditor) (_Debug Only_) 
 
-    **Configuring the Dynamics**
-    1.2  [Dynamic Type](#dynamicType)
-    1.3  [Axis Configuration](#axisConfiguration)
-    1.4  [Input Method](#inputMethod)
-    1.5  [Data Origin](#dataOrigin)
-    1.6  [Output Space](#outputSpace)
-    1.6  [Refresh Mode](#refreshMode)
+   #### Debug Options <br>
+   1.1  [Running Dynamics In Editor](#runDynamicsInEditor) (_Debug Only_) 
 
-    **Control Parameters**
-    1.7  [Second Order Parameters](#secondOrderParameters)
+   #### Configuring the Dynamics
+
+   1.2  [Dynamic Type](#dynamicType) <br>
+   1.3  [Axis Configuration](#axisConfiguration) <br>
+   1.4  [Input Method](#inputMethod) <br>
+   1.5  [Data Origin](#dataOrigin) <br>
+   1.6  [Output Space](#outputSpace) <br>
+   1.6  [Refresh Mode](#refreshMode)
+
+   #### Control Parameters
+   1.7  [Second Order Parameters](#secondOrderParameters)
 
 <br>
 
