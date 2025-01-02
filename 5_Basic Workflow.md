@@ -8,8 +8,8 @@ This document contains information conveying the basic workflow of the systems i
 
 1. [**SecondOrderDynamics**](#secondOrderDynamics)
  
-    ??**Debug Options**
-	??1.1  [Running Dynamics In Editor](#runDynamicsInEditor) (_Debug Only_) 
+    ..**Debug Options**
+	..1.1  [Running Dynamics In Editor](#runDynamicsInEditor) (_Debug Only_) 
 
     **Configuring the Dynamics**
     1.2  [Dynamic Type](#dynamicType)
