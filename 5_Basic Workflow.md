@@ -45,8 +45,9 @@ To start using the **SecondOrderTransform** component, drag it into a GameObject
 
 <br>
 
-**_Access through code:_**
+**_Access through code:_** <br>
 To access the **SecondOrderTransform** class, users may specify that they are using the **EasingToolkit.SecondOrderDynamics namespace**. They can do so by adding the following line of code at the beginning of their script:
+
 > **using EasingToolkit.SecondOrderDynamics;**
 
 <br>
@@ -60,15 +61,15 @@ When enabled, the SecondOrderTransform script will work without entering Play Mo
 
 <br>
 
-**_Access through code:_**
+**_Access through code:_** <br>
 This element should only be accessed through the inspector, as it is only meant for debug purposes.
 
 <br>
 
-**_WARNINGS:_**
+**_WARNINGS:_** <br>
 Use only as a Debug tool. SecondOrderTransform might display unintended behavior during Editor Mode:
 -  Due to Unity's restrictions on script execution, the "_FixedUpdate_" refresh mode is incompatible with Editor Mode. Instead, SecondOrderTransform will default to "_Update_" refresh mode during Editor Mode.
--  Execution during Editor Mode is incompatible with the "Stored _Transform Data_" input method.
+-  Execution during Editor Mode is incompatible with the "_Stored Transform Data_" input method.
 
 <br>
 
@@ -77,15 +78,15 @@ Determines whether this component should apply to the Position, Rotation, or Sca
 
 <br>
 
-**_Access through code:_**
+**_Access through code:_** <br>
 The Dynamic Type can be accessed and changed through the public "_WhichDynamicType_" field.
 
-> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
+> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>(); <br>
 > soTransform.WhichDynamicType = SecondOrderTransform.DynamicsType.position;
 
 <br>
 
-**_WARNINGS:_**
+**_WARNINGS:_** <br>
 - Changing the dynamic type forces a reset of the dynamics. The SecondOrderTransform component only tracks one dynamic at a time, and as such transitions between dynamics will not be smooth. Instead, to create such effects, it is recommended to use multiple SecondOrderTransform components simultaneously while altering their parameters.
 
 <br>
@@ -95,19 +96,19 @@ Determines whether the SecondOrderTransform component applies its output to cert
 
 <br>
 
-**_Access through code:_**
+**_Access through code:_** <br>
 The axes configuration can be accessed and changed through the public "axisToFollow" bool array.
 - axisToFollow[0] => Apply to X Axis.
 - axisToFollow[1] => Apply to Y Axis.
 - axisToFollow[2] => Apply to Z Axis.
+<br>
 
-
+> soTransform.axisToFollow[1] = false;	// Disabling the application of the SecondOrderTransform component to the Y Axis. <br>
 > SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
-> soTransform.axisToFollow[1] = false;	// Disabling the application of the SecondOrderTransform component to the Y Axis. 
 
 <br>
 
-**_WARNINGS:_**
+**_WARNINGS:_** <br>
 - The "_Rotation_" dynamic type ignores this configuration.
 - There is a known bug, where altering the Axes configuration through code will not be visually reflected in the Inspector. However, the changes are still taking effect.
 - Turning on the configuration of an Axis during runtime will result in a sudden change, as that is not the axes' intended use case. Instead, it is recommended to use multiple SecondOrderTransform components, each with different Axes Configurations, and manipulate their parameters.
@@ -121,7 +122,7 @@ Determines which method the SecondOrderTransform uses to obtain the input Transf
 
 <br>
 
-**_Access through code:_**
+**_Access through code:_** <br>
 To change the Input method, users can access and alter the public "inputMode" field.
 
 > SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
@@ -137,7 +138,7 @@ Further information on how to use the _Stored Transform Data_ input method can b
 
 <br>
 
-**_WARNINGS:_**
+**_WARNINGS:_** <br>
 - When using the "_Stored Transform Data_" input method, updating the component's dynamics before initializing them will result in an error. The error will indicate that the component is trying to set certain Transform values to NaN.
 - The "_Stored Transform Data_" input method requires users to initialize the Dynamics of the component every time the Dynamic type changes.
 
@@ -152,7 +153,7 @@ There are 2 possible options:
 
 <br>
 
-_**Access through code:**_
+_**Access through code:**_ <br>
 The data origin can be accessed and changed through the public "obtainTransformDataFromLocalOrWorld" field.
 
 > SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
@@ -160,7 +161,7 @@ The data origin can be accessed and changed through the public "obtainTransformD
 
 <br>
 
-**_WARNINGS:_**
+**_WARNINGS:_** <br>
 - This configuration is ignored while using the "_Stored Transform Data_" input mode (because the system does not need to fetch its Transform information).
 
 <br>
@@ -174,7 +175,7 @@ There are 2 possible options:
 
 <br>
 
-**_Access through code:_**
+**_Access through code:_** <br>
 The output space can be accessed and changed through the public "applyDynamicsToLocalOrWorld" field.
 
 > SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
@@ -190,7 +191,7 @@ Determines when the dynamics of the Second Order Transform component update whil
 
 <br>
 
-_**Access through code:**_
+_**Access through code:**_ <br>
 The refresh mode can be accessed and changed through the public "refreshMode" field.
 
 > SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
@@ -198,7 +199,7 @@ The refresh mode can be accessed and changed through the public "refreshMode" fi
 
 <br>
 
-**_WARNINGS:_**
+**_WARNINGS:_** <br>
 - This configuration is ignored while using the "_Stored Transform Data_" input mode (because the system updates at the user's command).
 - Be careful with updating physics-sensitive Transforms using the "Update" mode, as it will update its dynamics before any internal Unity-physics calculations.
 
@@ -215,7 +216,7 @@ Three main parameters control a Second Order Transform component:
 
 <br>
 
-**_Access through code:_**
+**_Access through code:_** <br>
 The three parameters can be accessed and changed through the following public pointers:
 - Frequency => "_Frequency_" public float.
 - Dampening => "_Dampening_" public float.
@@ -227,7 +228,7 @@ The three parameters can be accessed and changed through the following public po
 
 <br>
 
-**_WARNINGS:_**
+**_WARNINGS:_** <br>
 - Trying to set a parameter's value to one outside its range will not be allowed by the system. Instead, a Warning message will be produced.
 
 <br>
@@ -237,7 +238,7 @@ The three parameters can be accessed and changed through the following public po
 A function that applies an easing function to a float value in the [0, 1] range (inclusive).
 
 
-#### Declaration
+#### Declaration <br>
 public static float ApplyEase(float inputFloat, EaseType typeOfEase);
 
 <br>
@@ -249,13 +250,13 @@ public static float ApplyEase(float inputFloat, EaseType typeOfEase);
 
 <br>
 
-#### Implementation
+#### Implementation <br>
 Implemented inside the static **Easing** class. To be able to use the **Easing** class, users can specify that they are using the **EasingToolkit namespace** at the beginning of their script by adding the following line of code:
 > **using EasingToolkit;**
 
 <br>
 
-#### Example
+#### Example <br>
 
 A usual use case for the Easing.ApplyEase() method is to process an interpolation value before it is fed into a Lerp().
 For example, the following code would calculate an eased translation of [type EaseInOutQuint](https://easings.net/#easeInOutQuint) between positions A and B.
