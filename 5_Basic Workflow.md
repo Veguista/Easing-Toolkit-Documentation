@@ -1,4 +1,4 @@
-# Easing Toolkit - Basic Workflow
+﻿# Easing Toolkit - Basic Workflow
 
 This document contains information conveying the basic workflow of the systems inside the Easing Toolkit package. For a more in-depth exploration, visit [Advanced Workflow](https://github.com/Veguista/Easing-Toolkit-Documentation/blob/main/6_Advanced%20Workflow.md).
 
@@ -8,8 +8,8 @@ This document contains information conveying the basic workflow of the systems i
 
 1. [**SecondOrderDynamics**](#secondOrderDynamics)
  
-    ..**Debug Options**
-	..1.1  [Running Dynamics In Editor](#runDynamicsInEditor) (_Debug Only_) 
+    ⋅⋅⋅**Debug Options**
+	⋅⋅⋅1.1  [Running Dynamics In Editor](#runDynamicsInEditor) (_Debug Only_) 
 
     **Configuring the Dynamics**
     1.2  [Dynamic Type](#dynamicType)
