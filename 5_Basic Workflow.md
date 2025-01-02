@@ -45,7 +45,7 @@ To start using the **SecondOrderTransform** component, drag it into a GameObject
 
 <br>
 
-**_Access through code:_** <br>
+#### _ACCESS THROUGH CODE:_ <br>
 To access the **SecondOrderTransform** class, users may specify that they are using the **EasingToolkit.SecondOrderDynamics namespace**. They can do so by adding the following line of code at the beginning of their script:
 
 > **using EasingToolkit.SecondOrderDynamics;**
@@ -61,12 +61,12 @@ When enabled, the SecondOrderTransform script will work without entering Play Mo
 
 <br>
 
-**_Access through code:_** <br>
+#### _ACCESS THROUGH CODE:_ <br>
 This element should only be accessed through the inspector, as it is only meant for debug purposes.
 
 <br>
 
-**_WARNINGS:_** <br>
+#### _WARNINGS:_ <br>
 Use only as a Debug tool. SecondOrderTransform might display unintended behavior during Editor Mode:
 -  Due to Unity's restrictions on script execution, the "_FixedUpdate_" refresh mode is incompatible with Editor Mode. Instead, SecondOrderTransform will default to "_Update_" refresh mode during Editor Mode.
 -  Execution during Editor Mode is incompatible with the "_Stored Transform Data_" input method.
@@ -78,7 +78,7 @@ Determines whether this component should apply to the Position, Rotation, or Sca
 
 <br>
 
-**_Access through code:_** <br>
+#### _ACCESS THROUGH CODE:_ <br>
 The Dynamic Type can be accessed and changed through the public "_WhichDynamicType_" field.
 
 > SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>(); <br>
@@ -86,7 +86,7 @@ The Dynamic Type can be accessed and changed through the public "_WhichDynamicTy
 
 <br>
 
-**_WARNINGS:_** <br>
+#### _WARNINGS:_ <br>
 - Changing the dynamic type forces a reset of the dynamics. The SecondOrderTransform component only tracks one dynamic at a time, and as such transitions between dynamics will not be smooth. Instead, to create such effects, it is recommended to use multiple SecondOrderTransform components simultaneously while altering their parameters.
 
 <br>
@@ -96,19 +96,19 @@ Determines whether the SecondOrderTransform component applies its output to cert
 
 <br>
 
-**_Access through code:_** <br>
+#### _ACCESS THROUGH CODE:_ <br>
 The axes configuration can be accessed and changed through the public "axisToFollow" bool array.
 - axisToFollow[0] => Apply to X Axis.
 - axisToFollow[1] => Apply to Y Axis.
 - axisToFollow[2] => Apply to Z Axis.
+<be>
+
+> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>(); <br>
+> soTransform.axisToFollow[1] = false;	// Disabling the application of the SecondOrderTransform component to the Y Axis.
+
 <br>
 
-> soTransform.axisToFollow[1] = false;	// Disabling the application of the SecondOrderTransform component to the Y Axis. <br>
-> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
-
-<br>
-
-**_WARNINGS:_** <br>
+#### _WARNINGS:_ <br>
 - The "_Rotation_" dynamic type ignores this configuration.
 - There is a known bug, where altering the Axes configuration through code will not be visually reflected in the Inspector. However, the changes are still taking effect.
 - Turning on the configuration of an Axis during runtime will result in a sudden change, as that is not the axes' intended use case. Instead, it is recommended to use multiple SecondOrderTransform components, each with different Axes Configurations, and manipulate their parameters.
@@ -122,10 +122,10 @@ Determines which method the SecondOrderTransform uses to obtain the input Transf
 
 <br>
 
-**_Access through code:_** <br>
+#### _ACCESS THROUGH CODE:_ <br>
 To change the Input method, users can access and alter the public "inputMode" field.
 
-> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
+> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>(); <br>
 > soTransform.inputMode = SecondOrderTransform.TypeOfDataInput.storedTransformData;
 
 <br>
@@ -138,7 +138,7 @@ Further information on how to use the _Stored Transform Data_ input method can b
 
 <br>
 
-**_WARNINGS:_** <br>
+#### _WARNINGS:_ <br>
 - When using the "_Stored Transform Data_" input method, updating the component's dynamics before initializing them will result in an error. The error will indicate that the component is trying to set certain Transform values to NaN.
 - The "_Stored Transform Data_" input method requires users to initialize the Dynamics of the component every time the Dynamic type changes.
 
@@ -153,15 +153,15 @@ There are 2 possible options:
 
 <br>
 
-_**Access through code:**_ <br>
+#### _ACCESS THROUGH CODE:_ <br>
 The data origin can be accessed and changed through the public "obtainTransformDataFromLocalOrWorld" field.
 
-> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
-> soTransform.obtainTransformDataFromLocalOrWorld = TypeOfSpace.worldSpace;	// The TypeOfSpace enum is used here and at the Output Location section.
+> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>(); <br>
+> soTransform.obtainTransformDataFromLocalOrWorld = TypeOfSpace.worldSpace; // The TypeOfSpace enum is used here and at the Output Location section.
 
 <br>
 
-**_WARNINGS:_** <br>
+#### _WARNINGS:_ <br>
 - This configuration is ignored while using the "_Stored Transform Data_" input mode (because the system does not need to fetch its Transform information).
 
 <br>
@@ -175,11 +175,11 @@ There are 2 possible options:
 
 <br>
 
-**_Access through code:_** <br>
+#### _ACCESS THROUGH CODE:_ <br>
 The output space can be accessed and changed through the public "applyDynamicsToLocalOrWorld" field.
 
-> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
-> soTransform.applyDynamicsToLocalOrWorld= TypeOfSpace.localSpace;	// The TypeOfSpace enum is used here and in the Data Origin section.
+> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>(); <br>
+> soTransform.applyDynamicsToLocalOrWorld= TypeOfSpace.localSpace; // The TypeOfSpace enum is used here and in the Data Origin section.
 
 <br>
 
@@ -191,15 +191,15 @@ Determines when the dynamics of the Second Order Transform component update whil
 
 <br>
 
-_**Access through code:**_ <br>
+#### _ACCESS THROUGH CODE:_ <br>
 The refresh mode can be accessed and changed through the public "refreshMode" field.
 
-> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
+> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>(); <br>
 > soTransform.refreshMode = TypeOfDynamicsRefresh.fixedUpdate;
 
 <br>
 
-**_WARNINGS:_** <br>
+#### _WARNINGS:_ <br>
 - This configuration is ignored while using the "_Stored Transform Data_" input mode (because the system updates at the user's command).
 - Be careful with updating physics-sensitive Transforms using the "Update" mode, as it will update its dynamics before any internal Unity-physics calculations.
 
@@ -216,19 +216,19 @@ Three main parameters control a Second Order Transform component:
 
 <br>
 
-**_Access through code:_** <br>
+#### _ACCESS THROUGH CODE:_ <br>
 The three parameters can be accessed and changed through the following public pointers:
 - Frequency => "_Frequency_" public float.
 - Dampening => "_Dampening_" public float.
 - Initial Response => "InitialResponse" public float.
 
 
-> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>();
+> SecondOrderTransform soTransform = GetComponent<SecondOrderTransform>(); <br>
 > soTransform.InitialResponse = 0;
 
 <br>
 
-**_WARNINGS:_** <br>
+#### _WARNINGS:_ <br>
 - Trying to set a parameter's value to one outside its range will not be allowed by the system. Instead, a Warning message will be produced.
 
 <br>
@@ -238,7 +238,7 @@ The three parameters can be accessed and changed through the following public po
 A function that applies an easing function to a float value in the [0, 1] range (inclusive).
 
 
-#### Declaration <br>
+#### DECLARATION <br>
 public static float ApplyEase(float inputFloat, EaseType typeOfEase);
 
 <br>
@@ -250,41 +250,41 @@ public static float ApplyEase(float inputFloat, EaseType typeOfEase);
 
 <br>
 
-#### Implementation <br>
+#### IMPLEMENTATION <br>
 Implemented inside the static **Easing** class. To be able to use the **Easing** class, users can specify that they are using the **EasingToolkit namespace** at the beginning of their script by adding the following line of code:
 > **using EasingToolkit;**
 
 <br>
 
-#### Example <br>
+#### EXAMPLE <br>
 
 A usual use case for the Easing.ApplyEase() method is to process an interpolation value before it is fed into a Lerp().
 For example, the following code would calculate an eased translation of [type EaseInOutQuint](https://easings.net/#easeInOutQuint) between positions A and B.
 
 <br>
 
-> using EasingToolkit;
->
-> public class Interpolation
-> {
-> &nbsp;&nbsp;Vector3 position_a = new Vector3(0, 0, 0);
-> &nbsp;&nbsp;Vector3 position_b = new Vector3(1, 0, 3);
-> &nbsp;&nbsp;public Vector3 interpolatedPosition = Vector3.zero;
-> &nbsp;&nbsp;
-> &nbsp;&nbsp;float maxTime = 10;
-> &nbsp;&nbsp;float totalTimePassed = 0;
-> &nbsp;&nbsp;
-> &nbsp;&nbsp;void Update()
-> &nbsp;&nbsp;{
-> &nbsp;&nbsp;&nbsp;&nbsp;totalTimePassed += Time.deltaTime;
-> &nbsp;&nbsp;&nbsp;&nbsp;if(totalTimePassed > maxTime)
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalTimePassed = maxTime;
-> &nbsp;&nbsp;&nbsp;&nbsp;
-> &nbsp;&nbsp;&nbsp;&nbsp;float interpolationValue = totalTimePassed / maxTime;
-> &nbsp;&nbsp;&nbsp;&nbsp;float easedInterpolationValue = Easing.ApplyEase(interpolationValue, Easing.EaseType.EaseInOutQuint);
-> &nbsp;&nbsp;&nbsp;&nbsp;
-> &nbsp;&nbsp;&nbsp;&nbsp;interpolatedPosition = Vector3.Lerp(position_a, position_b, eased_interpolationValue);
-> &nbsp;&nbsp;}
+> using EasingToolkit; <br>
+> <br>
+> public class Interpolation <br>
+> { <br>
+> &nbsp;&nbsp;Vector3 position_a = new Vector3(0, 0, 0); <br>
+> &nbsp;&nbsp;Vector3 position_b = new Vector3(1, 0, 3); <br>
+> &nbsp;&nbsp;public Vector3 interpolatedPosition = Vector3.zero; <br>
+> &nbsp;&nbsp; <br>
+> &nbsp;&nbsp;float maxTime = 10; <br>
+> &nbsp;&nbsp;float totalTimePassed = 0; <br>
+> &nbsp;&nbsp; <br>
+> &nbsp;&nbsp;void Update() <br>
+> &nbsp;&nbsp;{ <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;totalTimePassed += Time.deltaTime; <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;if(totalTimePassed > maxTime) <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalTimePassed = maxTime; <br>
+> &nbsp;&nbsp;&nbsp;&nbsp; <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;float interpolationValue = totalTimePassed / maxTime; <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;float easedInterpolationValue = Easing.ApplyEase(interpolationValue, Easing.EaseType.EaseInOutQuint); <br>
+> &nbsp;&nbsp;&nbsp;&nbsp; <br>
+> &nbsp;&nbsp;&nbsp;&nbsp;interpolatedPosition = Vector3.Lerp(position_a, position_b, eased_interpolationValue); <br>
+> &nbsp;&nbsp;} <br>
 > }
 
 <br>
