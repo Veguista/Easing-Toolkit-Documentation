@@ -6,7 +6,7 @@ This document contains information conveying the basic workflow of the systems i
 
 ## Index
 
-1. [**SecondOrderDynamics**](#secondOrderDynamics)
+1. [**SecondOrderDynamics**](#second-order-dynamics)
 
    #### Debug Options <br>
    1.1  [Running Dynamics In Editor](#runDynamicsInEditor) (_Debug Only_) 
@@ -30,8 +30,8 @@ This document contains information conveying the basic workflow of the systems i
 <br>
 
 -------------------------------------
-
-## SecondOrderDynamics: {#secondOrderDynamics}
+<a name="second-order-dynamics"></a>
+## SecondOrderDynamics
 
 A collection of tools to ease movement, rotation, scaling, and other numerical variables procedurally.
 
