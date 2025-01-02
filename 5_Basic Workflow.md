@@ -30,8 +30,8 @@ This document contains information conveying the basic workflow of the systems i
 <br>
 
 -------------------------------------
-<a name="second-order-dynamics"></a>
-## SecondOrderDynamics
+
+## SecondOrderDynamics <a name="second-order-dynamics"></a>
 
 A collection of tools to ease movement, rotation, scaling, and other numerical variables procedurally.
 
@@ -53,9 +53,9 @@ To access the **SecondOrderTransform** class, users may specify that they are us
 
 The following are the options that the component offers to users:
 
-<be>
-<a name="run-dynamics-in-editor"></a>
-### Debug Options - Run Dynamics in Editor
+<br>
+
+### Debug Options - Run Dynamics in Editor <a name="run-dynamics-in-editor"></a>
 When enabled, the SecondOrderTransform script will work without entering Play Mode.
 
 <br>
@@ -71,8 +71,8 @@ Use only as a Debug tool. SecondOrderTransform might display unintended behavior
 -  Execution during Editor Mode is incompatible with the "Stored _Transform Data_" input method.
 
 <br>
-<a name="dynamic-type"></a>
-### Dynamics Configuration - Dynamic Type
+
+### Dynamics Configuration - Dynamic Type <a name="dynamic-type"></a>
 Determines whether this component should apply to the Position, Rotation, or Scale of the attached GameObject.
 
 <br>
@@ -89,8 +89,8 @@ The Dynamic Type can be accessed and changed through the public "_WhichDynamicTy
 - Changing the dynamic type forces a reset of the dynamics. The SecondOrderTransform component only tracks one dynamic at a time, and as such transitions between dynamics will not be smooth. Instead, to create such effects, it is recommended to use multiple SecondOrderTransform components simultaneously while altering their parameters.
 
 <br>
-<a name="axis-configuration"></a>
-### Dynamics Configuration - Axes configuration (Apply X / Apply Y / Apply Z)
+
+### Dynamics Configuration - Axes configuration (Apply X / Apply Y / Apply Z) <a name="axis-configuration"></a>
 Determines whether the SecondOrderTransform component applies its output to certain axes. It works only while using the "_Position_" and "_Scale_" dynamic types.
 
 <br>
@@ -113,8 +113,8 @@ The axes configuration can be accessed and changed through the public "axisToFol
 - Turning on the configuration of an Axis during runtime will result in a sudden change, as that is not the axes' intended use case. Instead, it is recommended to use multiple SecondOrderTransform components, each with different Axes Configurations, and manipulate their parameters.
 
 <br>
-<a name="input-method"></a>
-### Dynamics Configuration - Input Method
+
+### Dynamics Configuration - Input Method <a name="input-method"></a>
 Determines which method the SecondOrderTransform uses to obtain the input Transform information. There are possible 2 options:
 - _Follow Transform_: The Transform information is obtained from another GameObject. The inspector shows the field "Follow Transform" that allows users to select which Transform to obtain the information from.
 - _Stored Transform Data_: The Transform data is inputted by the user through code. The user needs to initialize and update the selected Dynamic manually.
@@ -142,8 +142,8 @@ Further information on how to use the _Stored Transform Data_ input method can b
 - The "_Stored Transform Data_" input method requires users to initialize the Dynamics of the component every time the Dynamic type changes.
 
 <br>
-<a name="data-origin"></a>
-### Dynamics Configuration - Data Origin
+
+### Dynamics Configuration - Data Origin <a name="data-origin"></a>
 Determines whether the Transform information is fetched locally or globally while using the "_Follow Transform_" input mode (Ex. Whether we are getting a Transform's "localPosition" or "worldPosition" to feed into the SecondOrderTransform component).
 
 There are 2 possible options:
@@ -164,8 +164,8 @@ The data origin can be accessed and changed through the public "obtainTransformD
 - This configuration is ignored while using the "_Stored Transform Data_" input mode (because the system does not need to fetch its Transform information).
 
 <br>
-<a name="output-space"></a>
-### Dynamics Configuration - Output Space
+
+### Dynamics Configuration - Output Space <a name="output-space"></a>
 Determines whether the results from the Second Order Dynamics are applied to the Transform locally or globally (Ex. We obtain an eased Quaternion as a result of updating our Second Order Dynamics. Do we set the Transform's "localRotation" or its "worldRotation"?).
 
 There are 2 possible options:
@@ -181,8 +181,8 @@ The output space can be accessed and changed through the public "applyDynamicsTo
 > soTransform.applyDynamicsToLocalOrWorld= TypeOfSpace.localSpace;	// The TypeOfSpace enum is used here and in the Data Origin section.
 
 <br>
-<a name="refresh-mode"></a>
-### Dynamics Configuration - Refresh Mode
+
+### Dynamics Configuration - Refresh Mode <a name="refresh-mode"></a>
 Determines when the dynamics of the Second Order Transform component update while using the "_Follow Transform_" input mode. There are 3 possible options:
 - _Update_: Every frame before all physics calculations have been performed.
 - _Fixed Update_: Every 0.02 secs.
@@ -203,8 +203,8 @@ The refresh mode can be accessed and changed through the public "refreshMode" fi
 - Be careful with updating physics-sensitive Transforms using the "Update" mode, as it will update its dynamics before any internal Unity-physics calculations.
 
 <br>
-<a name="second-order-parameters"></a>
-### Second Order Parameters
+
+### Second Order Parameters <a name="second-order-parameters"></a>
 Three main parameters control a Second Order Transform component:
 
 | Parameter | Description |
@@ -231,8 +231,8 @@ The three parameters can be accessed and changed through the following public po
 - Trying to set a parameter's value to one outside its range will not be allowed by the system. Instead, a Warning message will be produced.
 
 <br>
-<a name="easing-apply-ease"></a>
-## Easing.ApplyEase():
+
+## Easing.ApplyEase(): <a name="easing-apply-ease"></a>
 
 A function that applies an easing function to a float value in the [0, 1] range (inclusive).
 
